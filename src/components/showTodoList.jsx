@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 function TodoCard ({ data }) {
   const { _id, title, description } = data
@@ -38,6 +39,9 @@ export function ShowTodoList () {
 
   return (
     <section className='container'>
+      <link to='/create-todo' className='button-new'>
+        <button className='button'>New</button>
+      </link>
       <section className='contents'>
         <h1>TODO</h1>
         <ul className='list-container'>
