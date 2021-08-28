@@ -39,7 +39,7 @@ export function ShowTodoList () {
 
   return (
     <section className='container'>
-      <link to='/create-todo'className='button-new'>
+      <link to='/create-todo' className='button-new'>
         <button className='button'>New</button>
       </link>
       <section className='contents'>
