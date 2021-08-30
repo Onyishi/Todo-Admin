@@ -1,11 +1,10 @@
-
 // src/components/showTodoList.jsx
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-function TodoCard ({ data, handleDete }) {
+function TodoCard ({ data, handleDelete }) {
   const { _id, title, description } = data
   return (
     <li key={_id}>
@@ -15,8 +14,12 @@ function TodoCard ({ data, handleDete }) {
       </div>
 
       <div className='button-container'>
-        <button name={_id} className='button'>edit</button>
-        <button name={_id} className='button' onClick={handleDete}>delete</button>
+        <button name={_id} className='button'>
+          edit
+        </button>
+        <button name={_id} className='button' onClick={handleDelete}>
+          delete
+        </button>
       </div>
     </li>
   )
@@ -47,9 +50,9 @@ export function ShowTodoList () {
 
   return (
     <section className='container'>
-      <link to='/create-todo' className='button-new'>
+      <Link to='/create-todo' className='button-new'>
         <button className='button'>New</button>
-      </link>
+      </Link>
       <section className='contents'>
         <h1>TODO</h1>
         <ul className='list-container'>
