@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { updateTodo } from './updateTodo' // added
 
-function TodoCard ({ data, handleDelete }) {
+function TodoCard ({ data, handleEdit, handleDelete }) { // updated
   const { _id, title, description } = data
   return (
     <li key={_id}>
@@ -14,7 +15,7 @@ function TodoCard ({ data, handleDelete }) {
       </div>
 
       <div className='button-container'>
-        <button name={_id} className='button'>
+        <button name={_id} className='button' name={_id} onClick={handleEdit}>
           edit
         </button>
         <button name={_id} className='button' onClick={handleDelete}>
@@ -27,6 +28,9 @@ function TodoCard ({ data, handleDelete }) {
 
 export function ShowTodoList () {
   const [todo, setTodo] = useState([])
+  const [open, setOpen] = useState(false)  //added
+  const [id, setId] = useState('')  // added
+  const [update, setUpdate] = useState(false) // added
 
   useEffect(() => {
     axios
@@ -38,14 +42,29 @@ export function ShowTodoList () {
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }, [update]) // added
 
-  function handleDelete (e) {
+  function handleEdit (e) { // added
+    setId(e.target.name)
+    setOpen(true)
+  }
+
+  function handleUpdate() { // added
+    console.log('update:', update, !update)
+    setUpdate(!update)
+  }
+
+  function handleDelete (e) { // added
     axios.delete(`http://localhost:8000/api/todo/${e.target.name}`)
 
     setTodo((data) => {
       return data.filter((todo) => todo._id !== e.target.name)
     })
+  }
+
+  function handleClose() {
+    setId('')
+    setOpen(false)
   }
 
   return (
